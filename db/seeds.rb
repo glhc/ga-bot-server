@@ -22,10 +22,12 @@ user1 = User.create(email: 'sean@email.com', password_digest: Password.create('p
 user2 = User.create(email: 'patrick@email.com', password_digest: Password.create('password'), first_name: 'Patrick', last_name: 'Horne', username: 'Sk8erboi', age: 420);
 user3 = User.create(email: 'seoh@email.com', password_digest: Password.create('password'), first_name: 'Se', last_name: 'Oh', username: 'President', age: 69);
 
+
 Friend.create(user_id: user1.id, friend_id: user2.id)
 Friend.create(user_id: user2.id, friend_id: user1.id)
 Friend.create(user_id: user2.id, friend_id: user3.id)
 Friend.create(user_id: user3.id, friend_id: user2.id)
+
 
 Relationship.create(user_id: user1.id, friend_id: user2.id)
 Relationship.create(user_id: user1.id, friend_id: user3.id)
@@ -53,3 +55,4 @@ ChatroomMessage.create(user_id: user3.id, chatroom_id: room2.id, message: 'no wa
 ChatroomMessage.create(user_id: user2.id, chatroom_id: room2.id, message: 'yes way');
 ChatroomMessage.create(user_id: user3.id, chatroom_id: room2.id, message: 'im calling the police');
 ChatroomMessage.create(user_id: user3.id, chatroom_id: room3.id, message: 'no one wants to join my chatroom T.T')
+
