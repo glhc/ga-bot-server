@@ -10,4 +10,6 @@ class User < ApplicationRecord
     :foreign_key => "friend_id",
     :class_name => "Relationship",
     :dependent => :destroy
+    
+  has_many :chatrooms
 end
