@@ -1,15 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-
-  has_many :friends,
-    :foreign_key => "friend_id",
-    :class_name => "Friend",
-    :dependent => :destroy
-
-  has_many :relationships,
-    :foreign_key => "friend_id",
-    :class_name => "Relationship",
-    :dependent => :destroy
-    
   has_many :chatrooms
+  has_many :chatroom_messages
+  has_many :chatroom_users
+  has_many :friends
+  has_many :relationships
 end

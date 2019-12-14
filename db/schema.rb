@@ -10,14 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_11_091326) do
+ActiveRecord::Schema.define(version: 2019_12_14_120322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "chatroom_messages", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "chatroom_id"
+    t.string "message"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "chatroom_users", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "chatroom_id"
+    t.boolean "is_admin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "chatrooms", force: :cascade do |t|
     t.integer "user_id"
     t.string "room_name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "friends", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "relationships", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "friend_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -34,5 +64,4 @@ ActiveRecord::Schema.define(version: 2019_12_11_091326) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "chatrooms", "users"
 end
