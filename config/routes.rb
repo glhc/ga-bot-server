@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/read_following' => 'friends#read_following'
   post '/destroy_following' => 'friends#destroy_following'
   get '/read_people' => 'friends#read_people'
+  get '/profile/:id' => 'friends#read_profile'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

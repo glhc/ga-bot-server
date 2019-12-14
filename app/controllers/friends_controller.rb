@@ -49,6 +49,12 @@ class FriendsController < ApplicationController
         render json: @people
     end
 
+    def read_profile
+        userid = params[:id]
+        @user = User.find_by :id => userid
+        render json: @user
+    end
+
     private
         def friend_params
             params.require(:friend).permit(:user_id, :friend_id)
