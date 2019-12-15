@@ -8,6 +8,11 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  # GET /user/whatsmyid
+  def id
+    render :json => current_user.id
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show
