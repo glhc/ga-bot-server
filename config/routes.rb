@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get '/read_people' => 'friends#read_people'
   get '/profile/:id' => 'friends#read_profile'
 
+  get '/chatrooms' => 'chatroom#read_chatrooms'
+  get '/chatroom/:id' => 'chatroom#read_chatroom'
+
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
 end
