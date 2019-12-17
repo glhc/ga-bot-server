@@ -1,5 +1,7 @@
 class ChatroomMessagesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_chatroom_message, only: [:show, :update, :destroy]
+  
 
   # GET /chatroom_messages
   # GET /chatroom_messages.json

@@ -1,4 +1,5 @@
 class ChatroomUsersController < ApplicationController
+  before_action :authenticate_user
   before_action :set_chatroom_user, only: [:show, :update, :destroy]
 
   # GET /chatroom_users
