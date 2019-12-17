@@ -7,6 +7,8 @@
 
 
 class FriendsController < ApplicationController
+  skip_before_action :verify_authenticity_token
+  protect_from_forgery with: :null_session
   before_action :authenticate_user
 
     def read_people
@@ -22,8 +24,8 @@ class FriendsController < ApplicationController
     end
 
     def follow_user
-        @var = JSON.parse(params[:query])
-        console.log(@var)
+        # @var = JSON.parse(params[:query])
+        console.log("ass")
     end
 
     def unfollow_user
