@@ -6,6 +6,10 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+<<<<<<< HEAD
+=======
+require faker
+>>>>>>> seeds fix
 include BCrypt
 
 # # Creates a user with a random name
