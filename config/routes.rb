@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   post 'user_token' => 'user_token#create'
+  get '/user/whatsmyid' => 'users#id'
   resources :users
   resources :friends
   resources :chatrooms
