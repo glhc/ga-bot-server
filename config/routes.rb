@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   
   get '/read_people' => 'friends#read_people'
   get '/profile/:id' => 'friends#read_profile'
+  get '/feed/:id' => 'friends#feed'
   post '/follow' => 'friends#follow_user'
   post '/unfollow' => 'friends#unfollow_user'
 

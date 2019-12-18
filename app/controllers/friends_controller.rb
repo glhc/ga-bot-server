@@ -12,15 +12,8 @@ class FriendsController < ApplicationController
   before_action :authenticate_user
 
     def read_people
-        @people = User.all
-        @people_detail = []
-        
-        # @people.each do |user|
-        #     following = Friend.where(user_id: user.id).length
-        #     followers = Friend.where(friend_id: user.id).length
-        #     @people_detail.push(user.merge({:following => following, :followers => followers}))
-        # end
-        render json: @people
+        people = User.all
+        render json: people
     end
 
     def follow_user
@@ -34,22 +27,61 @@ class FriendsController < ApplicationController
     
     def read_profile
         userid = params[:id]
-        @user = User.find_by :id => userid
-        @following_detail = []
+        user = User.find_by :id => userid
+        following_detail = []
         following = Friend.where(user_id: userid)
         following.each do |user|
-            @following_detail.push(User.find_by :id => user.friend_id)
+            following_detail.push(User.find_by :id => user.friend_id)
         end
-        @followers_detail = []
+        followers_detail = []
         followers = Friend.where(friend_id: userid)
         followers.each do |user|
-            @followers_detail.push(User.find_by :id => user.user_id)
+            followers_detail.push(User.find_by :id => user.user_id)
+        end
+        posts = Post.where(user_id: userid)
+        @query = {
+            "user": user, 
+            "following": following_detail, 
+            "followers": followers_detail,
+            "posts": posts,
+        }
+
+        render json: @query
+    end
+
+    def feed
+        userid = params[:id]
+        user = User.find_by :id => userid
+        following_detail = []
+        following = Friend.where(user_id: userid)
+        following.each do |user|
+            following_detail.push(User.find_by :id => user.friend_id)
+        end
+        followers_detail = []
+        followers = Friend.where(friend_id: userid)
+        followers.each do |user|
+            followers_detail.push(User.find_by :id => user.user_id)
+        end
+        posts = []
+        following.each do |user|
+            # user_posts = Post.where(user_id: user.friend_id)
+            user_posts = ActiveRecord::Base.connection.exec_query("SELECT * FROM posts LEFT JOIN users ON users.id = posts.user_id WHERE user_id = #{user.friend_id}")
+            user_posts.each do |post|
+                # user_info = User.find_by :id => post.user_id
+                # post[:first_name] = user_info.first_name
+                # post[:last_name] = user_info.last_name
+                # post[:username] = user_info.username
+                posts.push(post)
+            end
         end
         
+        my_posts = Post.where(user_id: userid)
         @query = {
-            "user": @user, 
-            "following": @following_detail, 
-            "followers": @followers_detail
+            "user": user, 
+            "following": following_detail, 
+            "followers": followers_detail,
+            "posts": posts,
+            "my_posts": my_posts,
         }
 
         render json: @query
